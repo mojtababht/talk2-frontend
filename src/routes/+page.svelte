@@ -7,37 +7,13 @@
     import SignUp from "../components/SignUp.svelte";
 
     const backend_base_url = 'http://127.0.0.1:8000/'
-    $:access_token = ''
-    $:refresh_token = ''
+    /** @type {import('./$types').PageData} */
+    export let data;
 
-    export function getRefresh({ cookies }) {
-        refresh_token = cookies.get('refresh');
-        if (!refresh_token) {
-            return false
-        }
-        return refresh_token;
-    }
-    export function getAccess({ cookies }){
-        access_token = cookies.get('access');
-        if (!access_token){
-            refresh_token = getRefresh(cookies);
-            // TODO: send req to back
-            if (!refresh_token){
-                return false
-            }
-        }
-        return access_token
-    }
-    export function setTokens({cookies}) {
-        cookies.set('access', access_token);
-        cookies.set('refresh', refresh_token);
-    }
-    // function isAuthenticated({cookies}) {
-    //     return getAccess(cookies);
-    // }
+
 </script>
 
-{#if access_token}
+{#if data.access}
     <div class="app">
         <Header/>
         <div class="wrapper">
@@ -46,7 +22,7 @@
             <Detail/>
         </div>
     </div>
-    {:else }
+{:else }
     <Login/>
 {/if}
 

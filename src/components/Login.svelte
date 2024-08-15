@@ -1,33 +1,22 @@
 <script>
-    const backend_base_url = 'http://127.0.0.1:8000/'
 
-    const login_url = backend_base_url + 'api/auth/login/'
-    async function login(){
-        let response = await fetch(login_url,
-            {method: "POST",
-                body:{},
-                headers: {
-                'Content-Type': 'application/json'
-            }})
-        console.log(response.body)
-    }
 </script>
 
 
 <div class="login-box">
     <h2>Login</h2>
-    <form>
+    <form method="post", action="?/login">
         <div class="user-box">
-            <input type="text" name="" required="">
+            <input type="text" name="username" required="">
             <label>Username</label>
         </div>
         <div class="user-box">
-            <input type="password" name="" required="">
+            <input type="password" name="password" required="">
             <label>Password</label>
         </div>
         <div class="user-box butoon-wraper">
             <button>SignUp</button>
-            <p on:click={login}>Submit</p>
+            <button type="submit">Submit</button>
         </div>
     </form>
 </div>
