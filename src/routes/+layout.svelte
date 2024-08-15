@@ -3,16 +3,21 @@
     import Conversations from "../components/Conversations.svelte";
     import Detail from "../components/Detail.svelte";
     import Chat from "../components/Chat.svelte";
+    import Login from "../components/Login.svelte";
+    import SignUp from "../components/SignUp.svelte";
 </script>
-<div class="app">
-    <Header/>
-    <div class="wrapper">
-        <Conversations/>
-        <Chat/>
-        <Detail/>
-    </div>
-</div>
+<!--<div class="app">-->
+<!--    <Header/>-->
+<!--    <div class="wrapper">-->
+<!--        <Conversations/>-->
+<!--        <Chat/>-->
+<!--        <Detail/>-->
+<!--    </div>-->
+<!--</div>-->
 
+<Login/>
+
+<!--<SignUp/>-->
 
 <style>
     @charset "UTF-8";
