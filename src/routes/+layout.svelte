@@ -1,134 +1,15 @@
 <script>
     import Header from "../components/Header.svelte";
     import Conversations from "../components/Conversations.svelte";
+    import Detail from "../components/Detail.svelte";
+    import Chat from "../components/Chat.svelte";
 </script>
 <div class="app">
     <Header/>
     <div class="wrapper">
         <Conversations/>
-        <div class="chat-area">
-            <div class="chat-area-header">
-                <div class="chat-area-title">CodePen Group</div>
-                <div class="chat-area-group">
-                    <img class="chat-area-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png" alt="" />
-                    <img class="chat-area-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-                    <img class="chat-area-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%2812%29.png" alt="" />
-                    <span>+4</span>
-                </div>
-            </div>
-            <div class="chat-area-main">
-                <div class="chat-msg">
-                    <div class="chat-msg-profile">
-                        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png" alt="" />
-                        <div class="chat-msg-date">Message seen 1.22pm</div>
-                    </div>
-                    <div class="chat-msg-content">
-                        <div class="chat-msg-text">Luctus et ultrices posuere cubilia curae.</div>
-                        <div class="chat-msg-text">
-                            <img src="https://media0.giphy.com/media/yYSSBtDgbbRzq/giphy.gif?cid=ecf05e47344fb5d835f832a976d1007c241548cc4eea4e7e&rid=giphy.gif" /></div>
-                        <div class="chat-msg-text">Neque gravida in fermentum et sollicitudin ac orci phasellus egestas. Pretium lectus quam id leo.</div>
-                    </div>
-                </div>
-                <div class="chat-msg owner">
-                    <div class="chat-msg-profile">
-                        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />
-                        <div class="chat-msg-date">Message seen 1.22pm</div>
-                    </div>
-                    <div class="chat-msg-content">
-                        <div class="chat-msg-text">Sit amet risus nullam eget felis eget. Dolor sed viverra ipsum😂😂😂</div>
-                        <div class="chat-msg-text">Cras mollis nec arcu malesuada tincidunt.</div>
-                    </div>
-                </div>
-                <div class="chat-msg">
-                    <div class="chat-msg-profile">
-                        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-                        <div class="chat-msg-date">Message seen 2.45pm</div>
-                    </div>
-                    <div class="chat-msg-content">
-                        <div class="chat-msg-text">Aenean tristique maximus tortor non tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae😊</div>
-                        <div class="chat-msg-text">Ut faucibus pulvinar elementum integer enim neque volutpat.</div>
-                    </div>
-                </div>
-                <div class="chat-msg owner">
-                    <div class="chat-msg-profile">
-                        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />
-                        <div class="chat-msg-date">Message seen 2.50pm</div>
-                    </div>
-                    <div class="chat-msg-content">
-                        <div class="chat-msg-text">posuere eget augue sodales, aliquet posuere eros.</div>
-                        <div class="chat-msg-text">Cras mollis nec arcu malesuada tincidunt.</div>
-                    </div>
-                </div>
-                <div class="chat-msg">
-                    <div class="chat-msg-profile">
-                        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%2812%29.png" alt="" />
-                        <div class="chat-msg-date">Message seen 3.16pm</div>
-                    </div>
-                    <div class="chat-msg-content">
-                        <div class="chat-msg-text">Egestas tellus rutrum tellus pellentesque</div>
-                    </div>
-                </div>
-                <div class="chat-msg">
-                    <div class="chat-msg-profile">
-                        <img class="chat-msg-img account-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png" alt="">
-                        <div class="chat-msg-date">Message seen 3.16pm</div>
-                    </div>
-                    <div class="chat-msg-content">
-                        <div class="chat-msg-text">Consectetur adipiscing elit pellentesque habitant morbi tristique senectus et.</div>
-                    </div>
-                </div>
-                <div class="chat-msg owner">
-                    <div class="chat-msg-profile">
-                        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />
-                        <div class="chat-msg-date">Message seen 2.50pm</div>
-                    </div>
-                    <div class="chat-msg-content">
-                        <div class="chat-msg-text">Tincidunt arcu non sodales😂</div>
-                    </div>
-                </div>
-                <div class="chat-msg">
-                    <div class="chat-msg-profile">
-                        <img class="chat-msg-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-                        <div class="chat-msg-date">Message seen 3.16pm</div>
-                    </div>
-                    <div class="chat-msg-content">
-                        <div class="chat-msg-text">Consectetur adipiscing elit pellentesque habitant morbi tristique senectus et🥰</div>
-                    </div>
-                </div>
-            </div>
-            <div class="chat-area-footer">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-video">
-                    <path d="M23 7l-7 5 7 5V7z" />
-                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" /></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <path d="M21 15l-5-5L5 21" /></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 8v8M8 12h8" /></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-paperclip">
-                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" /></svg>
-                <input type="text" placeholder="Type something here..." />
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-smile">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" /></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up">
-                    <path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" /></svg>
-            </div>
-        </div>
-        <div class="detail-area">
-            <div class="detail-area-header">
-                <div class="msg-profile group">
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
-                        <path d="M12 2l10 6.5v7L12 22 2 15.5v-7L12 2zM12 22v-6.5" />
-                        <path d="M22 8.5l-10 7-10-7" />
-                        <path d="M2 15.5l10-7 10 7M12 2v6.5" /></svg>
-                </div>
-                <div class="detail-title">CodePen Group</div>
-                <div class="detail-subtitle">Created by Aysenur, 1 May 2020</div>
-            </div>
-        </div>
+        <Chat/>
+        <Detail/>
     </div>
 </div>
 
@@ -227,7 +108,6 @@
         --input-chat-color: #6f7073;
         --detail-font-color: var(--input-chat-color);
     }
-
     .blue {
         background-color: #0086ff;
     }
@@ -252,19 +132,16 @@
     img {
         max-width: 100%;
     }
-
     :global(body) {
         background-color: var(--body-bg-color);
         font-family: var(--body-font);
         color: var(--body-color);
         margin: 0;
     }
-
     :global(html) {
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
     }
-
     .app {
         display: flex;
         flex-direction: column;
@@ -280,23 +157,6 @@
         display: flex;
         flex-grow: 1;
         overflow: hidden;
-    }
-
-    .detail-area {
-        width: 340px;
-        flex-shrink: 0;
-    }
-    .detail-area {
-        border-left: 1px solid var(--border-color);
-        margin-left: auto;
-        padding: 30px 30px 0 30px;
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-    }
-
-    .chat-area {
-        flex-grow: 1;
     }
 
 
@@ -317,176 +177,12 @@
     :global(.msg-profile.group svg) {
         width: 60%;
     }
-
-
-
-    .chat-area {
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-    }
-    .chat-area-header {
-        display: flex;
-        position: sticky;
-        top: 0;
-        left: 0;
-        z-index: 2;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px;
-        background: var(--chat-header-bg);
-    }
-    .chat-area-profile {
-        width: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-    .chat-area-title {
-        font-size: 18px;
-        font-weight: 600;
-    }
-    .chat-area-main {
-        flex-grow: 1;
-    }
-
-    .chat-msg-img {
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .chat-msg-profile {
-        flex-shrink: 0;
-        margin-top: auto;
-        margin-bottom: -20px;
-        position: relative;
-    }
-
-    .chat-msg-date {
-        position: absolute;
-        left: calc(100% + 12px);
-        bottom: 0;
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--msg-date);
-        white-space: nowrap;
-    }
-
-    .chat-msg {
-        display: flex;
-        padding: 0 20px 45px;
-    }
-    .chat-msg-content {
-        margin-left: 12px;
-        max-width: 70%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .chat-msg-text {
-        background-color: var(--chat-text-bg);
-        padding: 15px;
-        border-radius: 20px 20px 20px 0;
-        line-height: 1.5;
-        font-size: 14px;
-        font-weight: 500;
-    }
-    .chat-msg-text + .chat-msg-text {
-        margin-top: 10px;
-    }
-
-    .chat-msg-text {
-        color: var(--chat-text-color);
-    }
-
-    .owner {
-        flex-direction: row-reverse;
-    }
-    .owner .chat-msg-content {
-        margin-left: 0;
-        margin-right: 12px;
-        align-items: flex-end;
-    }
-    .owner .chat-msg-text {
-        background-color: var(--theme-color);
-        color: #fff;
-        border-radius: 20px 20px 0 20px;
-    }
-    .owner .chat-msg-date {
-        left: auto;
-        right: calc(100% + 12px);
-    }
-
-    .chat-msg-text img {
-        max-width: 300px;
-        width: 100%;
-    }
-
-    .chat-area-footer {
-        display: flex;
-        border-top: 1px solid var(--border-color);
-        width: 100%;
-        padding: 10px 20px;
-        align-items: center;
-        background-color: var(--theme-bg-color);
-        position: sticky;
-        bottom: 0;
-        left: 0;
-    }
-
-    .chat-area-footer svg {
-        color: var(--settings-icon-color);
-        width: 20px;
-        flex-shrink: 0;
-        cursor: pointer;
-    }
-    .chat-area-footer svg:hover {
-        color: var(--settings-icon-hover);
-    }
-    .chat-area-footer svg + svg {
-        margin-left: 12px;
-    }
-
-    .chat-area-footer input {
-        border: none;
-        color: var(--body-color);
-        background-color: var(--input-bg);
-        padding: 12px;
-        border-radius: 6px;
-        font-size: 15px;
-        margin: 0 12px;
-        width: 100%;
-    }
-    .chat-area-footer input::placeholder {
-        color: var(--input-chat-color);
-    }
-
-    .detail-area-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
     :global(.detail-area-header .msg-profile) {
         margin-right: 0;
         width: 60px;
         height: 60px;
         margin-bottom: 15px;
     }
-
-    .detail-title {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 10px;
-    }
-
-    .detail-subtitle {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--msg-date);
-    }
-
     .detail-button {
         border: 0;
         background-color: var(--button-bg-color);
@@ -512,25 +208,6 @@
         margin-top: 20px;
         display: flex;
         width: 100%;
-    }
-
-    .detail-area input {
-        background-color: transparent;
-        border: none;
-        width: 100%;
-        color: var(--body-color);
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56.966 56.966' fill='%23c1c7cd'%3e%3cpath d='M55.146 51.887L41.588 37.786A22.926 22.926 0 0046.984 23c0-12.682-10.318-23-23-23s-23 10.318-23 23 10.318 23 23 23c4.761 0 9.298-1.436 13.177-4.162l13.661 14.208c.571.593 1.339.92 2.162.92.779 0 1.518-.297 2.079-.837a3.004 3.004 0 00.083-4.242zM23.984 6c9.374 0 17 7.626 17 17s-7.626 17-17 17-17-7.626-17-17 7.626-17 17-17z'/%3e%3c/svg%3e");
-        background-repeat: no-repeat;
-        background-size: 16px;
-        background-position: 100%;
-        font-family: var(--body-font);
-        font-weight: 600;
-        font-size: 14px;
-        border-bottom: 1px solid var(--border-color);
-        padding: 14px 0;
-    }
-    .detail-area input::placeholder {
-        color: var(--detail-font-color);
     }
 
     .detail-changes {
@@ -676,36 +353,7 @@
         margin-right: 10px;
     }
 
-    .dark-mode .chat-area-group span {
-        color: #d1d1d2;
-    }
 
-    .chat-area-group {
-        flex-shrink: 0;
-        display: flex;
-    }
-    .chat-area-group * {
-        border: 2px solid var(--theme-bg-color);
-    }
-    .chat-area-group * + * {
-        margin-left: -5px;
-    }
-    .chat-area-group span {
-        width: 32px;
-        height: 32px;
-        background-color: var(--button-bg-color);
-        color: var(--theme-color);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        font-weight: 500;
-    }
 
-    @media (max-width: 1120px) {
-        .detail-area {
-            display: none;
-        }
-    }
+
 </style>
