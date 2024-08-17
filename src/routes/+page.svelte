@@ -8,13 +8,12 @@
     /** @type {import('./$types').PageData} */
     export let data;
 
-
 </script>
 
 <div class="app">
     <Header user_info={data.user_info}/>
     <div class="wrapper">
-        <Conversations/>
+        <Conversations access_token={data.access_token}/>
         <Chat/>
         <Detail/>
     </div>

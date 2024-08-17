@@ -1,22 +1,43 @@
 <script>
+    import {onMount} from "svelte";
+
     export let access_token
     const backend_base_url = 'http://127.0.0.1:8000/'
-    const chats_url = backend_base_url + 'api/chats'
+    const chats_url = backend_base_url + 'api/chats/'
+    let chats = []
+    onMount(async () => {
+        let response = await fetch(chats_url,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                }
+            })
+        if (response.ok) {
+            chats = await response.json()
+        }
+    })
+
+
+
 
 </script>
 
 
 <div class="conversation-area">
-    <div class="msg online">
-        <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />
-        <div class="msg-detail">
-            <div class="msg-username">Madison Jones</div>
-            <div class="msg-content">
-                <span class="msg-message">What time was our meet</span>
-                <span class="msg-date">20m</span>
+    {#each chats as chat}
+        <div class="msg online">
+            <img class="msg-profile" src={chat.avatar} alt={chat.name}/>/ />
+            <div class="msg-detail">
+                <div class="msg-username">{chat.name}</div>
+                <div class="msg-content">
+<!--                    <span class="msg-message">What time was our meet</span>-->
+<!--                    <span class="msg-date">20m</span>-->
+                </div>
             </div>
         </div>
-    </div>
+    {/each}
     <div class="msg">
         <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%2812%29.png" alt="" />
         <div class="msg-detail">

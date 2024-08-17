@@ -23,7 +23,7 @@ export async function load({ cookies }) {
         user_info = await response.json()
     }
     else {
-        let response = await fetch(refresh_url,
+        let refresh_response = await fetch(refresh_url,
             {
                 method: 'POST',
                 headers:{
@@ -31,12 +31,14 @@ export async function load({ cookies }) {
                 },
                 body: JSON.stringify({'refresh': refresh_token}),
             })
-        if (response.ok) {
-            const response_data = await response.json()
+        if (refresh_response.ok) {
+            const response_data = await refresh_response.json()
             access_token = response_data.access
             refresh_token = response_data.refresh
-            await cookies.set('access', access_token)
-            await cookies.set('refresh', refresh_token)
+            await cookies.delete('access', {path: '/'});
+            await cookies.delete('refresh', {path: '/'});
+            await cookies.set('access', access_token, {path: '/'})
+            await cookies.set('refresh', refresh_token, {path: '/'})
             let response = await fetch(user_info_url,
                 {
                     method: 'GET',
@@ -50,6 +52,8 @@ export async function load({ cookies }) {
             }
         }
         if (!user_info){
+            await cookies.delete('access', {path: '/'});
+            await cookies.delete('refresh', {path: '/'});
             redirect(303, '/login')
         }
     }
