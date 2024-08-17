@@ -5,7 +5,7 @@
 
 <div class="login-box">
     <h2>Login</h2>
-    <form method="post", action="?/login">
+    <form method="post" action="?/login">
         <div class="user-box">
             <input type="text" name="username" required="">
             <label>Username</label>

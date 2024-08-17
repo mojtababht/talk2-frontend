@@ -13,7 +13,7 @@
 
 </script>
 
-{#if data.access}
+{#if data.user_info}
     <div class="app">
         <Header/>
         <div class="wrapper">
