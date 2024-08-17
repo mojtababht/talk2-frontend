@@ -3,8 +3,6 @@
     import Conversations from "../components/Conversations.svelte";
     import Detail from "../components/Detail.svelte";
     import Chat from "../components/Chat.svelte";
-    import Login from "../components/Login.svelte";
-    import SignUp from "../components/SignUp.svelte";
 
     const backend_base_url = 'http://127.0.0.1:8000/'
     /** @type {import('./$types').PageData} */
@@ -13,20 +11,15 @@
 
 </script>
 
-{#if data.user_info}
-    <div class="app">
-        <Header user_info={data.user_info}/>
-        <div class="wrapper">
-            <Conversations/>
-            <Chat/>
-            <Detail/>
-        </div>
+<div class="app">
+    <Header user_info={data.user_info}/>
+    <div class="wrapper">
+        <Conversations/>
+        <Chat/>
+        <Detail/>
     </div>
-{:else }
-    <Login/>
-{/if}
+</div>
 
-<!--<SignUp/>-->
 
 <style>
     @charset "UTF-8";

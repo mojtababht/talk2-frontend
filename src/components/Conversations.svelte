@@ -1,3 +1,11 @@
+<script>
+    export let access_token
+    const backend_base_url = 'http://127.0.0.1:8000/'
+    const chats_url = backend_base_url + 'api/chats'
+
+</script>
+
+
 <div class="conversation-area">
     <div class="msg online">
         <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29.png" alt="" />

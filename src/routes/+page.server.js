@@ -22,7 +22,7 @@ export async function load({ cookies }) {
     if (response.ok) {
         user_info = await response.json()
     }
-    else if (response.status === 403) {
+    else {
         let response = await fetch(refresh_url,
             {
                 method: 'POST',
@@ -49,27 +49,10 @@ export async function load({ cookies }) {
                 user_info = await response.json()
             }
         }
-    }
-    return {user_info: user_info};
-}
-
-/** @type {import('./$types').Actions} */
-export const actions = {
-    login: async ({cookies, request}) => {
-        let form = await request.formData()
-        let data = {}
-        form.forEach((value, key) => data[key] = value)
-        let response = await fetch(login_url,
-            {method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }})
-        if (response.ok) {
-            let response_data = await response.json()
-            cookies.set('access', response_data.access, {path: '/'})
-            cookies.set('refresh', response_data.refresh, {path: '/'})
-            throw redirect(302, '/')
+        if (!user_info){
+            redirect(303, '/login')
         }
     }
-};
+    return {user_info: user_info, access_token:access_token};
+}
+
