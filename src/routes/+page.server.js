@@ -5,9 +5,6 @@ const login_url = backend_base_url + 'api/auth/login/'
 const user_info_url = backend_base_url + 'api/users/user_info/'
 const refresh_url = backend_base_url + 'api/auth/refresh/'
 
-function getUserIfo(accessToken) {
-
-}
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ cookies }) {

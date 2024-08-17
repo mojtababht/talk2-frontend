@@ -15,7 +15,7 @@
 
 {#if data.user_info}
     <div class="app">
-        <Header/>
+        <Header user_info={data.user_info}/>
         <div class="wrapper">
             <Conversations/>
             <Chat/>
