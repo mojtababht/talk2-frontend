@@ -1,6 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import avatar from "$lib/avatar.jpg"
+    import AddChat from "./AddChat.svelte";
 
     export let access_token
     const backend_base_url = 'http://127.0.0.1:8000/'
@@ -20,7 +21,7 @@
             chats = chats.results
         }
     })
-
+    let showModal = false
 
 </script>
 
@@ -63,7 +64,14 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-    <button class="add"></button>
+    <button class="add" on:click={() => showModal = true}></button>
+    <AddChat bind:showModal>
+        <form action="?/addChat" method="POST">
+            <input type="text" name="username" required="" />
+            <button autofocus type="submit">add</button>
+        </form>
+    </AddChat>
+
     <div class="overlay"></div>
 </div>
 
