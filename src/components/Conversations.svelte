@@ -66,9 +66,9 @@
 <!--    </div>-->
     <button class="add" on:click={() => showModal = true}></button>
     <AddChat bind:showModal>
-        <form action="?/addChat" method="POST">
-            <input type="text" name="username" required="" />
-            <button autofocus type="submit">add</button>
+        <form action="?/addChat" method="POST" class="add-form">
+            <input type="text" name="username" required="" class="input-box" placeholder="Username"/>
+            <button autofocus type="submit" class="btn-submit">add</button>
         </form>
     </AddChat>
 
@@ -176,4 +176,46 @@
         background: var(--overlay-bg);
         height: 80px;
     }
+
+
+    .add-form {
+        background: transparent;
+        /*background-color: #76d8ff;*/
+        /*background-color: red;*/
+        display: flex;
+        /*overflow: hidden;*/
+        border: solid 1px var(--border-color);
+        border-radius: 4px;
+
+    }
+
+
+    .input-box {
+        background: transparent;
+        width: 100%;
+        padding: 10px 0;
+        font-size: 16px;
+        color: var(--chat-text-color);
+        /*margin-bottom: 30px;*/
+        /*border: none;*/
+        border: solid 1px var(--theme-color);
+        border-radius: 4px 0 0 4px;
+    }
+
+    .input-box:focus{
+        transition: 300ms;
+        border: solid 0.5px var(--theme-color);
+    }
+
+    .btn-submit{
+        background-color: var(--border-color);
+        border: solid 0.1px var(--theme-color);
+        border-radius:0 4px 4px 0;
+        color: var(--chat-text-color);
+    }
+    .btn-submit:hover{
+        background-color: var(--theme-color);
+        transition: 300ms;
+    }
+
 </style>

@@ -19,18 +19,18 @@
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div on:click|stopPropagation>
         <slot name="header" />
-        <hr />
         <slot />
-        <hr />
-        <!-- svelte-ignore a11y-autofocus -->
-        <button autofocus on:click={() => dialog.close()}>close</button>
+
+<!--        <button autofocus on:click={() => dialog.close()}>close</button>-->
 
     </div>
 </dialog>
 
 <style>
     dialog {
-        max-width: 32em;
+        background-color: var(--border-color);
+        width: 18em;
+        height: 6em;
         border-radius: 0.2em;
         border: none;
         padding: 0;
