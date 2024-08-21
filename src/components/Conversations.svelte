@@ -6,7 +6,10 @@
     export let access_token
     const backend_base_url = 'http://127.0.0.1:8000/'
     const chats_url = backend_base_url + 'api/chats/'
+
+    $: selected_chat = {}
     let chats = []
+
     onMount(async () => {
         let response = await fetch(chats_url,
             {
@@ -23,12 +26,16 @@
     })
     let showModal = false
 
+    function mmd(chat){
+        selected_chat = chat
+    }
+
 </script>
 
 
 <div class="conversation-area">
     {#each chats as chat}
-        <div class="msg online">
+        <div name="{chat.name}" class="msg online {selected_chat === chat ? 'active' : ''}" on:click={mmd(chat)}>
             <img class="msg-profile" src={chat.avatar ? chat.avatar : avatar} alt={chat.name}/>
             <div class="msg-detail">
                 <div class="msg-username">{chat.name}</div>

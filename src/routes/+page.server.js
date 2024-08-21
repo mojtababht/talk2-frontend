@@ -58,7 +58,7 @@ export async function load({ cookies }) {
             redirect(303, '/login')
         }
     }
-    return {user_info: user_info, access_token:access_token};
+    return {user_info: user_info, access_token: access_token};
 }
 
 /** @type {import('./$types').Actions} */
