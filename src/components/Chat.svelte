@@ -12,6 +12,22 @@
     $: socket = null
     let messages = []
 
+    let chatArea;
+    let autoscroll = false;
+
+    beforeUpdate(() => {
+        if (chatArea) {
+            const scrollableDistance = chatArea.scrollHeight - chatArea.offsetHeight;
+            autoscroll = chatArea.scrollTop > scrollableDistance - 20;
+        }
+    });
+
+    afterUpdate(() => {
+        if (autoscroll) {
+            chatArea.scrollTo(0, chatArea.scrollHeight);
+        }
+    });
+
     selectedChat.subscribe(currentChat => {
         if (currentChat.id) {
             if (socket){
@@ -34,14 +50,21 @@
                 messages = await response.json()
             })
             socket.addEventListener('message', event => {
-                console.log(event.data)
+                messages = JSON.parse(event.data)
             })
         }
     })
 
+    function sendMessage(message){
+        let data = {'message': message}
+        if (socket) {
+            socket.send(JSON.stringify(data))
+        }
+    }
+
 </script>
 
-<div class="chat-area">
+<div class="chat-area" bind:this={chatArea}>
     <ChatHeader/>
     <div class="chat-area-main">
         {#each messages as message}
@@ -58,7 +81,7 @@
             {:else}
                 <div class="chat-msg">
                     <div class="chat-msg-profile">
-                        <img class="chat-msg-img" src={message.user.profile.avatar ? message.user.profile.avatar: avatar} alt="" />
+                        <img class="chat-msg-img" src={$selectedChat.members.length === 1 && $selectedChat.members[0].profile.avatar? $selectedChat.members[0].profile.avatar: avatar} alt="" />
                         <div class="chat-msg-date">{message.created_at_date} {message.created_at_time}</div>
                     </div>
                     <div class="chat-msg-content">
@@ -134,7 +157,9 @@
 <!--            </div>-->
 <!--        </div>-->
     </div>
-    <ChatFooter/>
+    {#if $selectedChat.id}
+        <ChatFooter sendMessage={sendMessage}/>
+    {/if}
 </div>
 
 <style>
