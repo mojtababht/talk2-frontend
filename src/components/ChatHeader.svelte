@@ -1,5 +1,6 @@
 <script>
     import {selectedChat} from "$lib/store.js";
+    import avatar from "$lib/avatar.jpg";
 
     $: selected_chat = $selectedChat
 </script>
@@ -9,8 +10,8 @@
     {#if selected_chat.id}
     <div class="chat-area-title">{selected_chat.name}</div>
     <div class="chat-area-group">
-        {#each selected_chat.members.slice(0, 3) as member, i}
-            <img class="chat-area-profile" src={member.profile.avatar} alt={member.username} />
+        {#each selected_chat.members.slice(0, 3) as member}
+            <img class="chat-area-profile" src={member.profile.avatar ? member.profile.avatar: avatar} alt={member.username} />
         {/each}
         {#if selected_chat.members.length > 3}
             <span>+{selected_chat.members.length - 3}</span>
