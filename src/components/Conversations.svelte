@@ -2,6 +2,7 @@
     import {onMount} from "svelte";
     import avatar from "$lib/avatar.jpg"
     import AddChat from "./AddChat.svelte";
+    import {selectedChat} from "$lib/store.js";
 
     export let access_token
     const backend_base_url = 'http://127.0.0.1:8000/'
@@ -28,6 +29,7 @@
 
     function mmd(chat){
         selected_chat = chat
+        selectedChat.set(selected_chat)
     }
 
 </script>

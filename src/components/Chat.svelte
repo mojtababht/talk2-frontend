@@ -1,6 +1,19 @@
 <script>
     import ChatHeader from "./ChatHeader.svelte";
     import ChatFooter from "./ChatFooter.svelte";
+    import {selectedChat} from "$lib/store.js";
+    import {beforeUpdate, afterUpdate} from 'svelte';
+
+    const backend_base_websocket = 'ws://127.0.0.1:8000/'
+    export let access_token
+
+    $: selected_chat = $selectedChat
+    afterUpdate(() => {
+        if (selected_chat.id) {
+            let socket = new WebSocket(backend_base_websocket + 'ws/chat/' + selected_chat.id +'/?token=' + access_token)
+            console.log(socket)
+        }
+    })
 </script>
 
 <div class="chat-area">
