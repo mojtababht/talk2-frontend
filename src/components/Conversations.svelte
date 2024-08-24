@@ -39,7 +39,7 @@
 
 <div class="conversation-area">
     {#each chats as chat}
-        <div name="{chat.name}" class="msg online {selected_chat === chat ? 'active' : ''}" on:click={mmd(chat)}>
+        <div name="{chat.name}" class="msg {chat.members.length === 1 && chat.members[0].profile.is_online ? 'online': ''} {selected_chat === chat ? 'active' : ''}" on:click={mmd(chat)}>
             <img class="msg-profile" src={chat.avatar ? chat.avatar : avatar} alt={chat.name}/>
             <div class="msg-detail">
                 <div class="msg-username">{chat.name}</div>

@@ -14,7 +14,7 @@
     <Header user_info={data.user_info}/>
     <div class="wrapper">
         <Conversations access_token={data.access_token}/>
-        <Chat access_token={data.access_token}/>
+        <Chat access_token={data.access_token} user={data.user_info}/>
         <Detail/>
     </div>
 </div>
