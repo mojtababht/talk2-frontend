@@ -28,8 +28,10 @@
     let showModal = false
 
     function mmd(chat){
-        selected_chat = chat
-        selectedChat.set(selected_chat)
+        if (chat !== selected_chat) {
+            selected_chat = chat
+            selectedChat.set(selected_chat)
+        }
     }
 
 </script>

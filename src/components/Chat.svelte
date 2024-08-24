@@ -6,14 +6,18 @@
 
     const backend_base_websocket = 'ws://127.0.0.1:8000/'
     export let access_token
+    let socket = null
 
-    $: selected_chat = $selectedChat
-    afterUpdate(() => {
-        if (selected_chat.id) {
-            let socket = new WebSocket(backend_base_websocket + 'ws/chat/' + selected_chat.id +'/?token=' + access_token)
-            console.log(socket)
+    selectedChat.subscribe(currentChat => {
+        if (currentChat.id) {
+            if (socket){
+                socket.close()
+            }
+            socket = new WebSocket(backend_base_websocket + 'ws/chat/' + currentChat.id +'/?token=' + access_token)
+            console.log(socket.url.split('/')[5])
         }
     })
+
 </script>
 
 <div class="chat-area">
