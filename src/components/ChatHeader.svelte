@@ -1,11 +1,24 @@
+<script>
+    import {selectedChat} from "$lib/store.js";
+
+    $: selected_chat = $selectedChat
+</script>
+
+
 <div class="chat-area-header">
-    <div class="chat-area-title">CodePen Group</div>
+    {#if selected_chat.id}
+    <div class="chat-area-title">{selected_chat.name}</div>
     <div class="chat-area-group">
-        <img class="chat-area-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png" alt="" />
-        <img class="chat-area-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="">
-        <img class="chat-area-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%2812%29.png" alt="" />
-        <span>+4</span>
+        {#each selected_chat.members.slice(0, 3) as member, i}
+            <img class="chat-area-profile" src={member.profile.avatar} alt={member.username} />
+        {/each}
+        {#if selected_chat.members.length > 3}
+            <span>+{selected_chat.members.length - 3}</span>
+        {:else}
+            <span style="background: transparent; border: none"></span>
+        {/if}
     </div>
+    {/if}
 </div>
 
 <style>
