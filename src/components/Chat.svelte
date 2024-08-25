@@ -48,9 +48,11 @@
                     }
                 })
                 messages = await response.json()
+                messages.reverse()
             })
             socket.addEventListener('message', event => {
                 messages = JSON.parse(event.data)
+                messages.reverse()
             })
         }
     })
