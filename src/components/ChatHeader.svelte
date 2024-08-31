@@ -8,17 +8,19 @@
 
 <div class="chat-area-header">
     {#if selected_chat.id}
-    <div class="chat-area-title">{selected_chat.name}</div>
-    <div class="chat-area-group">
-        {#each selected_chat.members.slice(0, 3) as member}
-            <img class="chat-area-profile" src={member.profile.avatar ? member.profile.avatar: avatar} alt={member.username} />
-        {/each}
-        {#if selected_chat.members.length > 3}
-            <span>+{selected_chat.members.length - 3}</span>
-        {:else}
-            <span style="background: transparent; border: none"></span>
+        <div class="chat-area-title">{selected_chat.name}</div>
+        {#if selected_chat.members.length != 1}
+            <div class="chat-area-group">
+                {#each selected_chat.members.slice(0, 3) as member}
+                    <img class="chat-area-profile" src={member.profile.avatar ? member.profile.avatar: avatar} alt={member.username} />
+                {/each}
+                {#if selected_chat.members.length > 3}
+                    <span>+{selected_chat.members.length - 3}</span>
+                {:else}
+                    <span style="background: transparent; border: none"></span>
+                {/if}
+            </div>
         {/if}
-    </div>
     {/if}
 </div>
 

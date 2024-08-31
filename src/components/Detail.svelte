@@ -1,14 +1,17 @@
+<script>
+    import {selectedChat} from "$lib/store.js";
+    import avatar from "$lib/avatar.jpg";
+</script>
+
+
 <div class="detail-area">
-    <div class="detail-area-header">
-        <div class="msg-profile group">
-            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
-                <path d="M12 2l10 6.5v7L12 22 2 15.5v-7L12 2zM12 22v-6.5" />
-                <path d="M22 8.5l-10 7-10-7" />
-                <path d="M2 15.5l10-7 10 7M12 2v6.5" /></svg>
-        </div>
-        <div class="detail-title">CodePen Group</div>
-        <div class="detail-subtitle">Created by Aysenur, 1 May 2020</div>
-    </div>
+        {#if $selectedChat.id}
+            <div class="image-container">
+                <img src={$selectedChat.avatar ? $selectedChat.avatar: avatar} class="detail-image">
+            </div>
+        {/if}
+    <div class="detail-title">{$selectedChat.name}</div>
+    <div class="detail-subtitle">Created by Aysenur, 1 May 2020</div>
 </div>
 
 <style>
@@ -62,5 +65,19 @@
         .detail-area {
             display: none;
         }
+    }
+    .image-container{
+        align-self: center;
+        align-content: center;
+        justify-content: center;
+        overflow: hidden;
+        display: flex;
+        width: 100%;
+        height: 15rem;
+    }
+    .detail-image{
+        max-width: 100%;
+        aspect-ratio: auto;
+        object-fit: contain;
     }
 </style>
