@@ -1,17 +1,37 @@
 <script>
     import {selectedChat} from "$lib/store.js";
     import avatar from "$lib/avatar.jpg";
+    function lastOnline(profile){
+        if(profile.is_online) {
+            return 'online'
+        }
+        let last_online = new Date(profile.last_online)
+        let now = new Date()
+        let difference = (now - last_online) / 1000
+        if(difference <= 24*60*60){
+            let hours = Math.floor(difference / (60 * 60))
+            let minutes = Math.floor((difference - (hours * 60 * 60)) / 60)
+            return `${hours ? hours + 'hours': ''} ${minutes ? minutes + 'minutes': ''} ago`
+        }
+        return last_online.toDateString()
+    }
 </script>
 
 
 <div class="detail-area">
+    <div class="detail-area-header">
         {#if $selectedChat.id}
             <div class="image-container">
                 <img src={$selectedChat.avatar ? $selectedChat.avatar: avatar} class="detail-image">
             </div>
+            <div class="detail-title">{$selectedChat.name}</div>
+            {#if $selectedChat.members.length > 1}
+                <div class="detail-subtitle">Created by Aysenur, 1 May 2020</div>
+            {:else}
+                <div class="detail-subtitle">{lastOnline($selectedChat.members[0].profile)}</div>
+            {/if}
         {/if}
-    <div class="detail-title">{$selectedChat.name}</div>
-    <div class="detail-subtitle">Created by Aysenur, 1 May 2020</div>
+    </div>
 </div>
 
 <style>
