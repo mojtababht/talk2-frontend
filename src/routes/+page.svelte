@@ -3,10 +3,25 @@
     import Conversations from "../components/Conversations.svelte";
     import Detail from "../components/Detail.svelte";
     import Chat from "../components/Chat.svelte";
+    import {afterUpdate} from "svelte";
+    import {selectedChat} from "$lib/store.js";
 
     const backend_base_url = 'http://127.0.0.1:8000/'
+    const backend_base_ws_url = 'ws://127.0.0.1:8000/'
     /** @type {import('./$types').PageData} */
     export let data;
+    afterUpdate(() => {
+        if (data.access_token){
+            const socket = new WebSocket(backend_base_ws_url + 'ws/information' + '/?token=' + data.access_token)
+            socket.addEventListener('open', async event => {
+                console.log(event)
+            })
+            socket.addEventListener('message', event => {
+                console.log(event.data)
+            })
+        }
+    });
+
 
 </script>
 

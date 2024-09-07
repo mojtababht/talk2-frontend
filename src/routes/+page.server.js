@@ -5,11 +5,13 @@ const login_url = backend_base_url + 'api/auth/login/'
 const user_info_url = backend_base_url + 'api/users/user_info/'
 const refresh_url = backend_base_url + 'api/auth/refresh/'
 const chats_url = backend_base_url + 'api/chats/'
+const backend_base_ws_url = 'ws://127.0.0.1:8000/'
 
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ cookies }) {
     let user_info
+    let socket
     let access_token = await cookies.get('access');
     let refresh_token = await cookies.get('refresh');
     let response = await fetch(user_info_url,
@@ -56,6 +58,9 @@ export async function load({ cookies }) {
             await cookies.delete('access', {path: '/'});
             await cookies.delete('refresh', {path: '/'});
             redirect(303, '/login')
+        }
+        else {
+
         }
     }
     return {user_info: user_info, access_token: access_token};
