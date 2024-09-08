@@ -1,33 +1,16 @@
 <script>
-    import {onMount} from "svelte";
+    import {afterUpdate, onMount} from "svelte";
     import avatar from "$lib/avatar.jpg"
     import AddChat from "./AddChat.svelte";
-    import {selectedChat} from "$lib/store.js";
+    import {selectedChat, allChats} from "$lib/store.js";
 
-    export let access_token
-    const backend_base_url = 'http://127.0.0.1:8000/'
-    const chats_url = backend_base_url + 'api/chats/'
 
     $: selected_chat = {}
-    let chats = []
+    $: chats = $allChats
 
-    onMount(async () => {
-        let response = await fetch(chats_url,
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${access_token}`
-                }
-            })
-        if (response.ok) {
-            chats = await response.json()
-            chats = chats.results
-        }
-    })
     let showModal = false
 
-    function mmd(chat){
+    function selectAChat(chat){
         if (chat !== selected_chat) {
             selected_chat = chat
             selectedChat.set(selected_chat)
@@ -39,7 +22,7 @@
 
 <div class="conversation-area">
     {#each chats as chat}
-        <div name="{chat.name}" class="msg {chat.members.length === 1 && chat.members[0].profile.is_online ? 'online': ''} {selected_chat === chat ? 'active' : ''}" on:click={mmd(chat)}>
+        <div name="{chat.name}" class="msg {chat.members.length === 1 && chat.members[0].profile.is_online ? 'online': ''} {selected_chat.id === chat.id ? 'active' : ''}" on:click={selectAChat(chat)}>
             <img class="msg-profile" src={chat.avatar ? chat.avatar : avatar} alt={chat.name}/>
             <div class="msg-detail">
                 <div class="msg-username">{chat.name}</div>

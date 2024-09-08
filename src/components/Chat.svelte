@@ -74,7 +74,7 @@
                 <div class="chat-msg owner">
                     <div class="chat-msg-profile">
                         <img class="chat-msg-img" src={user.profile.avatar} alt="" />
-                        <div class="chat-msg-date">{message.created_at_date} {message.created_at_time}</div>
+                        <div class="chat-msg-date">{message.created_at}</div>
                     </div>
                     <div class="chat-msg-content">
                         <div class="chat-msg-text">{message.text}</div>
