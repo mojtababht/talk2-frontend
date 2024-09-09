@@ -6,7 +6,6 @@
     import avatar from "$lib/avatar.jpg"
 
     const backend_base_websocket = 'ws://127.0.0.1:8000/'
-    const backend_base_url = 'http://127.0.0.1:8000/'
     export let access_token
     export let user
     $: socket = null
@@ -38,18 +37,6 @@
     })
     afterUpdate(() => {
         if($selectedChat.id){
-            socket.addEventListener('open', async event => {
-                let response = await fetch(backend_base_url + 'api/chats/' + $selectedChat.id + '/messages',{
-                    method: 'GET',
-                    headers:{
-                        'Authorization': `Bearer ${access_token}`,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    }
-                })
-                messages = await response.json()
-                messages.reverse()
-            })
             socket.addEventListener('message', event => {
                 messages = JSON.parse(event.data)
                 messages.reverse()
