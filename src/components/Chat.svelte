@@ -4,9 +4,12 @@
     import {selectedChat} from "$lib/store.js";
     import {beforeUpdate, afterUpdate} from 'svelte';
     import avatar from "$lib/avatar.jpg"
+    import {refreshTokens} from "$lib";
+
+
+    export let data;
 
     const backend_base_websocket = 'ws://127.0.0.1:8000/'
-    export let access_token
     export let user
     $: socket = null
     let messages = []
@@ -32,7 +35,7 @@
             if (socket){
                 socket.close()
             }
-            socket = new WebSocket(backend_base_websocket + 'ws/chat/' + currentChat.id +'/?token=' + access_token)
+            socket = new WebSocket(backend_base_websocket + 'ws/chat/' + currentChat.id +'/?token=' + data.access_token)
         }
     })
     afterUpdate(() => {
@@ -40,6 +43,12 @@
             socket.addEventListener('message', event => {
                 messages = JSON.parse(event.data)
                 messages.reverse()
+            })
+            socket.addEventListener('error', async event => {
+                let access_refresh = await refreshTokens(data.refresh_token)
+                data.access_token = access_refresh.access_token
+                data.refresh_token = access_refresh.refresh_token
+                socket = new WebSocket(backend_base_websocket + 'ws/chat/' + $selectedChat.id +'/?token=' + data.access_token)
             })
         }
     })

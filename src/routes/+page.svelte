@@ -6,13 +6,15 @@
     import {onMount} from "svelte";
     import {allChats} from "$lib/store.js";
 
+
     const backend_base_url = 'http://127.0.0.1:8000/'
     const backend_base_ws_url = 'ws://127.0.0.1:8000/'
+
     /** @type {import('./$types').PageData} */
     export let data;
     onMount(() => {
         if (data.access_token){
-            const socket = new WebSocket(backend_base_ws_url + 'ws/information' + '/?token=' + data.access_token)
+            const socket = new WebSocket(backend_base_ws_url + 'ws/information' + '/?token=' + data.access_token);
             socket.addEventListener('open', async event => {
                 console.log(event)
             })
@@ -29,7 +31,7 @@
     <Header user_info={data.user_info}/>
     <div class="wrapper">
         <Conversations/>
-        <Chat access_token={data.access_token} user={data.user_info}/>
+        <Chat data={data} user={data.user_info}/>
         <Detail/>
     </div>
 </div>

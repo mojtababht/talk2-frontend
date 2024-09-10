@@ -1,19 +1,15 @@
 import {redirect} from "@sveltejs/kit";
+import {refreshTokens} from "$lib";
+
 
 const backend_base_url = 'http://127.0.0.1:8000/';
-const login_url = backend_base_url + 'api/auth/login/'
 const user_info_url = backend_base_url + 'api/users/user_info/'
-const refresh_url = backend_base_url + 'api/auth/refresh/'
 const chats_url = backend_base_url + 'api/chats/'
-const backend_base_ws_url = 'ws://127.0.0.1:8000/'
 
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ cookies }) {
-    let user_info
-    let socket
-    let access_token = await cookies.get('access');
-    let refresh_token = await cookies.get('refresh');
+
+
+async function getUserInfoByAccess(access_token) {
     let response = await fetch(user_info_url,
         {
             method: 'GET',
@@ -23,47 +19,38 @@ export async function load({ cookies }) {
             }
         })
     if (response.ok) {
-        user_info = await response.json()
+        return await response.json()
     }
-    else {
-        let refresh_response = await fetch(refresh_url,
-            {
-                method: 'POST',
-                headers:{
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({'refresh': refresh_token}),
-            })
-        if (refresh_response.ok) {
-            const response_data = await refresh_response.json()
-            access_token = response_data.access
-            refresh_token = response_data.refresh
-            await cookies.delete('access', {path: '/'});
-            await cookies.delete('refresh', {path: '/'});
-            await cookies.set('access', access_token, {path: '/'})
-            await cookies.set('refresh', refresh_token, {path: '/'})
-            let response = await fetch(user_info_url,
-                {
-                    method: 'GET',
-                    headers:{
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${access_token}`,
-                    }
-                })
-            if (response.ok) {
-                user_info = await response.json()
-            }
+}
+
+
+async function getUserInfo(cookies) {
+    let access_token = await cookies.get('access');
+    let refresh_token = await cookies.get('refresh');
+    let user_info = await getUserInfoByAccess(access_token)
+    if (!user_info) {
+        let access_refresh = await refreshTokens(refresh_token)
+        if(access_refresh){
+            access_token = access_refresh.access_token
+            refresh_token = access_refresh.refresh_token
+            user_info = await getUserInfoByAccess(access_token)
         }
-        if (!user_info){
+    }
+    return {user_info: user_info, access_token: access_token, refresh_token: refresh_token}
+}
+
+
+/** @type {import('./$types').PageServerLoad} */
+export async function load({ cookies }) {
+    let {user_info, access_token, refresh_token} = await getUserInfo(cookies);
+    await cookies.set('access', access_token, {path: '/'})
+    await cookies.set('refresh', refresh_token, {path: '/'})
+    if (!user_info){
             await cookies.delete('access', {path: '/'});
             await cookies.delete('refresh', {path: '/'});
             redirect(303, '/login')
         }
-        else {
-
-        }
-    }
-    return {user_info: user_info, access_token: access_token};
+    return {user_info: user_info, access_token: access_token, refresh_token: refresh_token};
 }
 
 /** @type {import('./$types').Actions} */
