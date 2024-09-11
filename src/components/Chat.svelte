@@ -2,7 +2,7 @@
     import ChatHeader from "./ChatHeader.svelte";
     import ChatFooter from "./ChatFooter.svelte";
     import {selectedChat} from "$lib/store.js";
-    import {beforeUpdate, afterUpdate} from 'svelte';
+    import {beforeUpdate, afterUpdate, onMount, onDestroy} from 'svelte';
     import avatar from "$lib/avatar.jpg"
     import {refreshTokens} from "$lib";
 
@@ -28,17 +28,6 @@
         if (autoscroll) {
             chatArea.scrollTo(0, chatArea.scrollHeight);
         }
-    });
-
-    selectedChat.subscribe(currentChat => {
-        if (currentChat.id) {
-            if (socket){
-                socket.close()
-            }
-            socket = new WebSocket(backend_base_websocket + 'ws/chat/' + currentChat.id +'/?token=' + data.access_token)
-        }
-    })
-    afterUpdate(() => {
         if($selectedChat.id){
             socket.addEventListener('message', event => {
                 messages = JSON.parse(event.data)
@@ -51,6 +40,15 @@
                 socket = new WebSocket(backend_base_websocket + 'ws/chat/' + $selectedChat.id +'/?token=' + data.access_token)
             })
         }
+    });
+
+    selectedChat.subscribe(currentChat => {
+        if (currentChat.id) {
+            if (socket){
+                socket.close()
+            }
+            socket = new WebSocket(backend_base_websocket + 'ws/chat/' + currentChat.id +'/?token=' + data.access_token)
+        }
     })
 
     function sendMessage(message){
@@ -60,9 +58,19 @@
         }
     }
 
+    function seenMessage(x){
+        // console.log("x.target.scrollHeight");
+        // console.log(x.target.scrollHeight);
+        // console.log('x.target.offsetHeight');
+        // console.log(x.target.offsetHeight);
+        // let messagesH = document.querySelector('.chat-msg').offsetHeight;
+        // console.log(messagesH);
+        console.log(messages);
+    }
+
 </script>
 
-<div class="chat-area" bind:this={chatArea}>
+<div class="chat-area" bind:this={chatArea} on:scroll={seenMessage}>
     <ChatHeader/>
     <div class="chat-area-main">
         {#each messages as message}
