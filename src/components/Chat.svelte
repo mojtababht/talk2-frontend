@@ -15,18 +15,25 @@
     let messages = []
 
     let chatArea;
-    let autoscroll = false;
+    let scrollHeight = 0;
+    let messagesHeight = 96
+
+
 
     beforeUpdate(() => {
-        if (chatArea) {
-            const scrollableDistance = chatArea.scrollHeight - chatArea.offsetHeight;
-            autoscroll = chatArea.scrollTop > scrollableDistance - 20;
+        if (messages.length > 0) {
+            const firstUnSeenMessage = messages.filter((message) => !message.seen)[0]
+            if(firstUnSeenMessage){
+                scrollHeight = messages.indexOf(firstUnSeenMessage) * messagesHeight
+            }else {
+                scrollHeight = chatArea.scrollHeight
+            }
         }
     });
 
     afterUpdate(() => {
-        if (autoscroll) {
-            chatArea.scrollTo(0, chatArea.scrollHeight);
+        if (scrollHeight) {
+            chatArea.scrollTo(0, scrollHeight);
         }
         if($selectedChat.id){
             socket.addEventListener('message', event => {
@@ -58,19 +65,19 @@
         }
     }
 
-    function seenMessage(x){
-        // console.log("x.target.scrollHeight");
-        // console.log(x.target.scrollHeight);
-        // console.log('x.target.offsetHeight');
-        // console.log(x.target.offsetHeight);
-        // let messagesH = document.querySelector('.chat-msg').offsetHeight;
-        // console.log(messagesH);
-        console.log(messages);
+    function seenMessage(event){
+        const firstMessageToLastVisibleDistance = event.target.scrollTop + event.target.offsetHeight
+        const cuntOfSeenMessages = firstMessageToLastVisibleDistance / messagesHeight
+        const unSeenMessagesIdList = messages.slice(0, cuntOfSeenMessages).filter((message) => !message.seen).map((message) => message.id)
+        if (unSeenMessagesIdList) {
+            let data = {'seen': unSeenMessagesIdList}
+            // socket.send(JSON.stringify(data))
+        }
     }
 
 </script>
 
-<div class="chat-area" bind:this={chatArea} on:scroll={seenMessage}>
+<div class="chat-area" bind:this={chatArea} on:scrollend={seenMessage}>
     <ChatHeader/>
     <div class="chat-area-main">
         {#each messages as message}

@@ -16,7 +16,7 @@
         if (data.access_token){
             const socket = new WebSocket(backend_base_ws_url + 'ws/information' + '/?token=' + data.access_token);
             socket.addEventListener('open', async event => {
-                console.log(event)
+                // console.log(event)
             })
             socket.addEventListener('message', event => {
                 allChats.set(JSON.parse(event.data))
