@@ -71,7 +71,7 @@
         const unSeenMessagesIdList = messages.slice(0, cuntOfSeenMessages).filter((message) => !message.seen).map((message) => message.id)
         if (unSeenMessagesIdList) {
             let data = {'seen': unSeenMessagesIdList}
-            // socket.send(JSON.stringify(data))
+            socket.send(JSON.stringify(data))
         }
     }
 
