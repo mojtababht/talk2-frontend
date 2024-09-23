@@ -17,24 +17,20 @@
     let chatArea;
     let scrollHeight = 0;
     let messagesHeight = 96
-    let firstUnSeenMessage
+    let autoscroll = false;
 
 
 
     beforeUpdate(() => {
-        if (messages.length > 0) {
-            firstUnSeenMessage = messages.filter((message) => !message.seen)[0]
-            if(firstUnSeenMessage){
-                scrollHeight = (messages.indexOf(firstUnSeenMessage) * messagesHeight) - chatArea.offsetHeight
-            }else {
-                scrollHeight = chatArea.scrollHeight
-            }
+        if(chatArea) {
+            const scrollableDistance = chatArea.scrollHeight - chatArea.offsetHeight;
+            autoscroll = chatArea.scrollTop > scrollableDistance - 20;
         }
     });
 
     afterUpdate(() => {
-        if (scrollHeight) {
-            chatArea.scrollTo(0, scrollHeight);
+        if (autoscroll) {
+            chatArea.scrollTo(0, chatArea.scrollHeight);
         }
     });
 
