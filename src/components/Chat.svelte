@@ -17,14 +17,15 @@
     let chatArea;
     let scrollHeight = 0;
     let messagesHeight = 96
+    let firstUnSeenMessage
 
 
 
     beforeUpdate(() => {
         if (messages.length > 0) {
-            const firstUnSeenMessage = messages.filter((message) => !message.seen)[0]
+            firstUnSeenMessage = messages.filter((message) => !message.seen)[0]
             if(firstUnSeenMessage){
-                scrollHeight = messages.indexOf(firstUnSeenMessage) * messagesHeight
+                scrollHeight = (messages.indexOf(firstUnSeenMessage) * messagesHeight) - chatArea.offsetHeight
             }else {
                 scrollHeight = chatArea.scrollHeight
             }
@@ -35,7 +36,15 @@
         if (scrollHeight) {
             chatArea.scrollTo(0, scrollHeight);
         }
-        if($selectedChat.id){
+    });
+
+    selectedChat.subscribe(currentChat => {
+        if (currentChat.id) {
+            if (socket){
+                messages = []
+                socket.close()
+            }
+            socket = new WebSocket(backend_base_websocket + 'ws/chat/' + currentChat.id +'/?token=' + data.access_token)
             socket.addEventListener('message', event => {
                 messages = JSON.parse(event.data)
                 messages.reverse()
@@ -46,15 +55,7 @@
                 data.refresh_token = access_refresh.refresh_token
                 socket = new WebSocket(backend_base_websocket + 'ws/chat/' + $selectedChat.id +'/?token=' + data.access_token)
             })
-        }
-    });
 
-    selectedChat.subscribe(currentChat => {
-        if (currentChat.id) {
-            if (socket){
-                socket.close()
-            }
-            socket = new WebSocket(backend_base_websocket + 'ws/chat/' + currentChat.id +'/?token=' + data.access_token)
         }
     })
 
@@ -75,6 +76,15 @@
         }
     }
 
+    function getMessageCreatedAt(message){
+        const createdAt = new Date(message.created_at)
+        const options = {
+            hour12: false,
+            timeStyle: 'short'
+        }
+        return `${createdAt.toISOString().split('T')[0]} ${createdAt.toLocaleTimeString(undefined, options)}`
+    }
+
 </script>
 
 <div class="chat-area" bind:this={chatArea} on:scrollend={seenMessage}>
@@ -85,7 +95,7 @@
                 <div class="chat-msg owner">
                     <div class="chat-msg-profile">
                         <img class="chat-msg-img" src={user.profile.avatar} alt="" />
-                        <div class="chat-msg-date">{message.created_at}</div>
+                        <div class="chat-msg-date">{getMessageCreatedAt(message)}</div>
                     </div>
                     <div class="chat-msg-content">
                         <div class="chat-msg-text">{message.text}</div>
@@ -95,7 +105,7 @@
                 <div class="chat-msg">
                     <div class="chat-msg-profile">
                         <img class="chat-msg-img" src={$selectedChat.members.length === 1 && $selectedChat.members[0].profile.avatar? $selectedChat.members[0].profile.avatar: avatar} alt="" />
-                        <div class="chat-msg-date">{message.created_at_date} {message.created_at_time}</div>
+                        <div class="chat-msg-date">{getMessageCreatedAt(message)}</div>
                     </div>
                     <div class="chat-msg-content">
                         <div class="chat-msg-text">{message.text}</div>
